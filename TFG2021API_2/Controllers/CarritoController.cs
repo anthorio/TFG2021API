@@ -13,18 +13,18 @@ namespace TFG2021API_2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientesController : ControllerBase
+    public class CarritoController : ControllerBase
     {
         [HttpGet]
         public IActionResult Get()
         {
-            Respuesta<List<Cliente>> oRespuesta = new Respuesta<List<Cliente>>();
+            Respuesta<List<Carrito>> oRespuesta = new Respuesta<List<Carrito>>();
 
             try
             {
                 using (TFG2021Context db = new TFG2021Context())
                 {
-                    var lst = db.Clientes.ToList();
+                    var lst = db.Carritos.ToList();
                     oRespuesta.Exito = 1;
                     oRespuesta.Data = lst;
                 }
@@ -39,20 +39,19 @@ namespace TFG2021API_2.Controllers
 
 
         [HttpPost]
-        public IActionResult Add(ClienteRequest model)
+        public IActionResult Add(CarritoRequest model)
         {
-            Respuesta<List<Cliente>> oRespuesta = new Respuesta<List<Cliente>>();
+            Respuesta<List<Carrito>> oRespuesta = new Respuesta<List<Carrito>>();
             try
             {
                 using (TFG2021Context db = new TFG2021Context())
                 {
-                    Cliente oCliente = new Cliente();
-                    oCliente.ClienteId = model.ClienteID;
-                    oCliente.Descuento = model.Descuento;
-                    oCliente.UsuarioIdCliente = model.UsuarioID_Cliente;
-                    oCliente.UsuarioIdClienteNavigation = db.Usuarios.Find(model.UsuarioID_Cliente);
+                    Carrito oCarrito = new Carrito();
+                    oCarrito.CarritoId = model.CarritoID;
+                    oCarrito.UsuarioCarrito = model.Usuario_Carrito;
+                    oCarrito.UsuarioCarritoNavigation = db.Usuarios.Find(model.Usuario_Carrito);
 
-                    db.Clientes.Add(oCliente);
+                    db.Carritos.Add(oCarrito);
                     db.SaveChanges();
                     oRespuesta.Exito = 1;
                 }
@@ -67,7 +66,7 @@ namespace TFG2021API_2.Controllers
 
 
         [HttpPut]
-        public IActionResult Edit(ClienteRequest model)
+        public IActionResult Edit(CarritoRequest model)
         {
             Respuesta<object> oRespuesta = new Respuesta<object>();
 
@@ -75,13 +74,12 @@ namespace TFG2021API_2.Controllers
             {
                 using (TFG2021Context db = new TFG2021Context())
                 {
-                    Cliente oCliente = db.Clientes.Find(model.ClienteID);
-                    oCliente.ClienteId = model.ClienteID;
-                    oCliente.Descuento = model.Descuento;
-                    oCliente.UsuarioIdCliente = model.UsuarioID_Cliente;
-                    oCliente.UsuarioIdClienteNavigation = db.Usuarios.Find(model.UsuarioID_Cliente);
+                    Carrito oCarrito = db.Carritos.Find(model.CarritoID);
+                    oCarrito.CarritoId = model.CarritoID;
+                    oCarrito.UsuarioCarrito = model.Usuario_Carrito;
+                    oCarrito.UsuarioCarritoNavigation = db.Usuarios.Find(model.Usuario_Carrito);
 
-                    db.Entry(oCliente).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    db.Entry(oCarrito).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     db.SaveChanges();
                     oRespuesta.Exito = 1;
                 }
@@ -104,8 +102,8 @@ namespace TFG2021API_2.Controllers
             {
                 using (TFG2021Context db = new TFG2021Context())
                 {
-                    Cliente oCliente= db.Clientes.Find(Id);
-                    db.Remove(oCliente);
+                    Carrito oCarrito= db.Carritos.Find(Id);
+                    db.Remove(oCarrito);
                     db.SaveChanges();
                     oRespuesta.Exito = 1;
                 }

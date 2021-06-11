@@ -55,6 +55,8 @@ namespace TFG2021API_2.Controllers
                     oProducto.Cantidad = model.Cantidad;
                     oProducto.Precio = model.Precio;
                     oProducto.UrlImagen = model.URL_imagen;
+                    oProducto.FamiliaProductoNavigation = db.FamiliaProductos.Find(model.Familia_Producto);
+                    oProducto.ProveedorProductoNavigation= db.Proveedors.Find(model.Proveedor_Producto);
 
                     db.Productos.Add(oProducto);
                     db.SaveChanges();
@@ -87,6 +89,8 @@ namespace TFG2021API_2.Controllers
                     oProducto.Cantidad = model.Cantidad;
                     oProducto.Precio = model.Precio;
                     oProducto.UrlImagen = model.URL_imagen;
+                    oProducto.FamiliaProductoNavigation = db.FamiliaProductos.Find(model.Familia_Producto);
+                    oProducto.ProveedorProductoNavigation = db.Proveedors.Find(model.Proveedor_Producto);
 
                     db.Entry(oProducto).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     db.SaveChanges();
