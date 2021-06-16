@@ -11,7 +11,7 @@ namespace TFG2021API_2.Models.Request
         public int Producto_FacturaLinea { get; set; }
         public int Factura_FacturaLinea { get; set; }
         public int Cantidad { get; set; }
-        public decimal importe { get; set; }
+        public decimal Importe { get; set; }
 
     }
 }
