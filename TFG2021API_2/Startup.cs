@@ -16,6 +16,7 @@ namespace TFG2021API_2
 {
     public class Startup
     {
+        readonly string MiCors = "MiCors";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,7 +27,7 @@ namespace TFG2021API_2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(options => { options.AddPolicy(name: MiCors, builder => { builder.WithOrigins("*"); }) });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -47,6 +48,8 @@ namespace TFG2021API_2
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MiCors);
 
             app.UseAuthorization();
 
